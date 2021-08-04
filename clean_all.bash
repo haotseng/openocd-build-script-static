@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -x
 # Copyright (c) 2014-2016 Arduino LLC
 #
 # This program is free software; you can redistribute it and/or
@@ -40,19 +40,8 @@ if [[ $CROSS_COMPILE == "mingw" ]] ; then
 
 else
 
-./compile_unix_openocd.sh
+./unix_clean_all.sh
 
-fi
-
-rm -f *.zip
-rm -f *.bz2
-
-cd distrib
-OUTPUT_TAG=`ls`
-if [[ $CROSS_COMPILE == "mingw" ]] ; then
-zip -r ../${OPENOCD_DIR_NAME}-${OUTPUT_TAG}-${OUTPUT_VERSION}.zip *
-else
-tar -cjvf ../${OPENOCD_DIR_NAME}-${OUTPUT_TAG}-${OUTPUT_VERSION}.tar.bz2 *
 fi
 
 popd
