@@ -1,3 +1,7 @@
 [submodule "OpenOCD"]
 	path = OpenOCD
 	url = https://github.com/arduino/OpenOCD.git
+[submodule "OpenOCD_picoprobe"]
+	path = OpenOCD_picoprobe
+	url = https://github.com/raspberrypi/openocd.git
+	branch = picoprobe
