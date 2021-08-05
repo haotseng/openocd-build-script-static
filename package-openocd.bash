@@ -37,6 +37,7 @@ pushd ${SCRIPT_DIR}
 if [[ $CROSS_COMPILE == "mingw" ]] ; then
 
 ./compile_win_openocd.sh
+#./compile_in_windows_openocd.sh
 
 else
 
