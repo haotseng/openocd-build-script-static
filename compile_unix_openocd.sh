@@ -54,8 +54,10 @@ export LIBS="-ludev"
 
 fi
 
-cd libusb-1.0.20
+#cd libusb-1.0.20
+cd libusb-1.0.24
 export LIBUSB_DIR=`pwd`
+./bootstrap.sh
 ./configure --enable-static --disable-shared
 make clean
 make
