@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 # Copyright (c) 2016 Arduino LLC
 #
 # This program is free software; you can redistribute it and/or

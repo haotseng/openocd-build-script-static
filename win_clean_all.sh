@@ -1,5 +1,5 @@
-#!/bin/bash -x
-# Copyright (c) 2014-2016 Arduino LLC
+#!/bin/bash -ex
+# Copyright (c) 2016 Arduino LLC
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,38 +15,44 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
 SCRIPT_DIR=$(cd $(dirname $0) && pwd)
-CURR_DIR=$(pwd)
+cd ${SCRIPT_DIR}
 
-#OUTPUT_VERSION=0.9.0-arduino6-static
-
-OPENOCD_MAIN_NAME=OpenOCD
-OPENOCD_TYPE_NAME=_picoprobe
-OPENOCD_DIR_NAME=${OPENOCD_MAIN_NAME}${OPENOCD_TYPE_NAME}
-
-DATE_STR=$(date +"%Y_%m_%d")
-OUTPUT_VERSION=${DATE_STR}-static
-
-export OS=`uname -o || uname`
-export TARGET_OS=$OS
-export OPENOCD_SRC_PATH=${SCRIPT_DIR}/${OPENOCD_DIR_NAME}
-
-pushd ${SCRIPT_DIR}
-
-if [[ $CROSS_COMPILE == "mingw" ]] ; then
-
-./win_clean_all.sh
-
-else
-
-./unix_clean_all.sh
-
+# check directory
+if [ X"${OPENOCD_SRC_PATH}" == "X" ]; then
+    echo "environment var 'OPENOCD_SRC_PATH' not found !"
+    exit 1
+fi
+if [ ! -d ${OPENOCD_SRC_PATH} ]; then
+    echo "OpenOCD source directory not found ! : ${OPENOCD_SRC_PATH} "
+    exit 1
 fi
 
-popd
+ARCH=`i686-w64-mingw32-gcc -v 2>&1 | awk '/Target/ { print $2 }'`
+#ARCH=`gcc -v 2>&1 | awk '/Target/ { print $2 }'`
 
+rm -rf distrib
 
+cd libusb-1.0.20
+make clean
+cd ..
 
+cd libusb-compat-0.1.5
+make clean
+cd ..
 
+#cd kmod-22
+#make clean
+#cd ..
 
+#cd eudev-3.1.5
+#make clean
+#make -j4
+#cd ..
+
+cd hidapi
+make clean
+cd ..
+
+cd ${OPENOCD_SRC_PATH}
+make clean
