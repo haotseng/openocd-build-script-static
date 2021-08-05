@@ -40,7 +40,8 @@ export PKG_CONFIG_PATH=`pwd`
 
 if [[ ${ARCH} != *darwin* ]]; then
 
-cd eudev-3.1.5
+#cd eudev-3.1.5
+cd eudev-3.2.10
 export UDEV_DIR=`pwd`
 ./autogen.sh
 ./configure --enable-static --disable-shared --disable-blkid --disable-kmod  --disable-manpages
